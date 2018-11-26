@@ -29,7 +29,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 Intent in = new Intent();
                 in.putExtra("Message",""+messageBody);
                 in.setClassName("com.example.lesliecorrea.sosapp", "com.example.lesliecorrea.sosapp.MainActivity");
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(in);
             }else if(isFound){
                 //Pass the message text to interface
