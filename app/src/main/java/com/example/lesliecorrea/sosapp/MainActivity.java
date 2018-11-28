@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import static android.Manifest.permission.READ_SMS;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean IsRunning ;
     private static final int PERMISSION_REQUEST_CODE = 200;
+    private Button StopButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,29 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
         }
 
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.siren);
+
+        StopButton = (Button) findViewById(R.id.stopButton);
+        StopButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                StopButton.setVisibility(View.INVISIBLE);
+                mp.stop();
+            }
+        });
+
         Intent serviceIntent = new Intent(getApplicationContext(),SmsBackgroundService.class);
         getApplicationContext().startService(serviceIntent);
 
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.siren);
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.start();
+            }
+
+        });
 
         //Handle SMS when screen is off
         Window window = this.getWindow();
@@ -48,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = data.getExtras();
 
         if(bundle!=null){
+            StopButton.setVisibility(View.VISIBLE);
             mp.start();
 
             String message = getIntent().getStringExtra("Message");
@@ -63,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //From the received text string you may do string operations to get the required OTP
                 //It depends on your SMS format
+                StopButton.setVisibility(View.VISIBLE);
                 mp.start();
                 Toast.makeText(MainActivity.this,"Message: "+messageText,Toast.LENGTH_LONG).show();
             }
