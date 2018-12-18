@@ -14,6 +14,7 @@ Clone this repository and open the root folder in Android Studio.
 
 ### Built With
 * [Android Studio](https://developer.android.com/studio/).
+* [Visual Studio App Center](https://appcenter.ms/) - Build Management.
 
 ## Authors
 
