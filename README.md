@@ -23,4 +23,4 @@ Clone this repository and open the root folder in Android Studio.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md]https://github.com/LeslieCorrea/Android-SOS-App/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/LeslieCorrea/Android-SOS-App/blob/master/LICENSE) file for details.
